@@ -1,46 +1,78 @@
-/* ============================================
-   custom-fa.css  (نسخه نهایی)
-   فونت وزیر + اندازه مناسب + رفع چسبیدن هدر
-   ============================================ */
+/* ============================================================
+   custom-fa.css
+   Persian / RTL stylesheet for Mahdi Yar portfolio
+   Bootstrap 4 compatible
+   ============================================================ */
 
-/* ---------- فونت وزیر ---------- */
-/* ---------- فونت وزیر (نسخه اصلاح‌شده – آیکون‌ها خراب نمی‌شن) ---------- */
-body.fa {
+
+/* ============================================================
+   1. PERSIAN FONT
+   ============================================================ */
+
+/*
+   فقط عناصر متنی از Vazir استفاده می‌کنند.
+   Font Awesome دست‌نخورده باقی می‌ماند.
+*/
+
+body.fa,
+body.fa p,
+body.fa h1,
+body.fa h2,
+body.fa h3,
+body.fa h4,
+body.fa h5,
+body.fa h6,
+body.fa a,
+body.fa button,
+body.fa input,
+body.fa textarea,
+body.fa label,
+body.fa span,
+body.fa li {
     font-family: Vazir, Tahoma, sans-serif !important;
 }
 
-/* همه چیز به جز آیکون‌های Font Awesome */
-body.fa *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(i[class*="fa-"]) {
-    font-family: Vazir, Tahoma, sans-serif !important;
-}
-
-/* ---------- اندازه فونت‌ها (خیلی مهم) ---------- */
 body.fa {
-    font-size: 16px !important;          /* پایه */
+    font-size: 16px !important;
     line-height: 1.8 !important;
+    direction: rtl;
+    text-align: right;
+    overflow-x: hidden;
 }
+
+
+/* ============================================================
+   2. GLOBAL RTL / OVERFLOW PROTECTION
+   ============================================================ */
+
+html[dir="rtl"] {
+    overflow-x: hidden;
+}
+
+body.fa img {
+    max-width: 100%;
+}
+
+body.fa .container,
+body.fa .container-fluid {
+    max-width: 100%;
+}
+
+
+/* ============================================================
+   3. TYPOGRAPHY
+   ============================================================ */
 
 body.fa p {
     font-size: 16px !important;
     line-height: 1.9 !important;
 }
 
-body.fa .section-title p,
-body.fa .about_text p,
-body.fa .single-sevices p,
-body.fa .project-points li,
-body.fa .client-comment p {
-    font-size: 15.5px !important;
-    line-height: 1.9 !important;
-}
-
-/* عنوان‌های اصلی */
 body.fa h1 {
     font-size: 2.6rem !important;
 }
 
-body.fa h2,
-body.fa .title {
+body.fa h2 {
     font-size: 2rem !important;
 }
 
@@ -53,15 +85,48 @@ body.fa h5 {
     font-size: 1.25rem !important;
 }
 
-/* متن خدمات و معرفی */
-body.fa .section-title p {
-    font-size: 16px !important;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+body.fa .section-title p,
+body.fa .about_text p,
+body.fa .single-sevices p,
+body.fa .project-points li,
+body.fa .client-comment p {
+    line-height: 1.9 !important;
 }
 
-/* ---------- دکمه تغییر زبان ---------- */
+
+/* ============================================================
+   4. NAVBAR
+   ============================================================ */
+
+body.fa .navbar {
+    direction: rtl;
+}
+
+body.fa .navbar-brand {
+    margin-right: 0;
+    margin-left: 1rem;
+}
+
+body.fa .navbar-nav {
+    margin-right: auto !important;
+    margin-left: 0 !important;
+}
+
+body.fa .navbar-nav .nav-link {
+    font-size: 15px !important;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+body.fa .navbar-toggler {
+    margin-left: 0;
+}
+
+
+/* ============================================================
+   5. LANGUAGE BUTTON
+   ============================================================ */
+
 .lang-btn {
     background: #222;
     color: #fff;
@@ -84,56 +149,115 @@ body.fa .lang-btn {
     font-size: 14px !important;
 }
 
-/* ---------- Navbar در RTL ---------- */
-body.fa .navbar {
+
+/* ============================================================
+   6. HOME / HERO
+   ============================================================ */
+
+body.fa .home-content {
+    direction: rtl;
+    text-align: center;
+}
+
+
+/* ============================================================
+   7. ABOUT
+   ============================================================ */
+
+/*
+   مهم:
+   Bootstrap Grid نباید در RTL خراب شود.
+   در دسکتاپ هر دو ستون همچنان 50% باقی می‌مانند.
+*/
+
+body.fa #about {
     direction: rtl;
 }
 
-body.fa .navbar-brand {
-    margin-right: 0;
-    margin-left: 1rem;
+body.fa #about .row {
+    direction: rtl;
 }
 
-body.fa .navbar-nav {
-    margin-right: 0 !important;
-    margin-left: auto !important;
+@media (min-width: 992px) {
+
+    body.fa #about .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    body.fa #about .col-lg-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
 }
 
-body.fa .navbar-nav .nav-link {
-    font-size: 15px !important;
-    padding-right: 1rem;
-    padding-left: 1rem;
-}
-
-body.fa .navbar-toggler {
-    margin-left: 0;
-    margin-right: auto;
-}
-
-/* ---------- درباره من ---------- */
 body.fa .about_content_box {
     text-align: right;
 }
 
-body.fa .about_text p {
-    text-align: right;
+body.fa .about_text {
     direction: rtl;
+    text-align: right;
+}
+
+body.fa .about_text p {
+    direction: rtl;
+    text-align: right;
     font-size: 16px !important;
 }
 
-body.fa .experience_box {
-    left: auto !important;
-    right: -15px;
+body.fa .about_img_box {
+    direction: ltr;
 }
 
-/* ---------- خدمات ---------- */
+
+/*
+   Experience box
+   مقدار منفی حذف شده تا باعث Horizontal Overflow نشود.
+*/
+
+body.fa .experience_box {
+    left: auto !important;
+    right: 0 !important;
+}
+
+
+/* ============================================================
+   8. ABOUT BUTTONS
+   ============================================================ */
+
+body.fa .about_content_box .y-button {
+    direction: rtl;
+}
+
+body.fa .mr-3 {
+    margin-right: 0 !important;
+    margin-left: 1rem !important;
+}
+
+
+/* ============================================================
+   9. SERVICES
+   ============================================================ */
+
+body.fa .services {
+    direction: rtl;
+}
+
+body.fa .services .section-title {
+    direction: rtl;
+    text-align: center;
+}
+
 body.fa .single-sevices {
+    direction: rtl;
     text-align: right;
 }
 
 body.fa .single-sevices p {
-    text-align: right;
     direction: rtl;
+    text-align: right;
     font-size: 15px !important;
     line-height: 1.8 !important;
 }
@@ -142,7 +266,60 @@ body.fa .single-sevices .title {
     font-size: 1.3rem !important;
 }
 
-/* ---------- پروژه‌ها ---------- */
+
+/* ============================================================
+   10. SKILLS / COUNTS
+   ============================================================ */
+
+body.fa .counts {
+    direction: rtl;
+}
+
+body.fa .skill_box {
+    direction: rtl;
+    text-align: center;
+}
+
+
+/* ============================================================
+   11. SECTION TITLES
+   ============================================================ */
+
+body.fa .section-title {
+    direction: rtl;
+}
+
+body.fa .section-title .title {
+    font-size: 2.1rem !important;
+}
+
+body.fa .section-title p {
+    font-size: 16px !important;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* ============================================================
+   12. PORTFOLIO
+   ============================================================ */
+
+body.fa .portfolio {
+    direction: rtl;
+}
+
+body.fa .portfolio .section-title {
+    text-align: center;
+}
+
+body.fa .portfolio > .container > h4 {
+    text-align: center;
+}
+
+
+/* Project points */
+
 .project-points {
     margin-top: 12px;
     text-align: left;
@@ -152,10 +329,10 @@ body.fa .single-sevices .title {
 }
 
 body.fa .project-points {
+    direction: rtl;
     text-align: right;
     padding-left: 0;
     padding-right: 18px;
-    direction: rtl;
     font-size: 14.5px !important;
 }
 
@@ -163,7 +340,11 @@ body.fa .project-points {
     margin-bottom: 7px;
 }
 
-/* Extra points */
+
+/* ============================================================
+   13. EXTRA PROJECT POINTS
+   ============================================================ */
+
 .extra-points-wrapper {
     max-height: 0;
     overflow: hidden;
@@ -173,6 +354,11 @@ body.fa .project-points {
 .extra-points-wrapper.open {
     max-height: 2500px;
 }
+
+
+/* ============================================================
+   14. SHOW MORE BUTTON
+   ============================================================ */
 
 .show-more-btn {
     background: transparent;
@@ -194,23 +380,122 @@ body.fa .project-points {
 }
 
 body.fa .show-more-btn {
+    direction: rtl;
     font-size: 14px !important;
 }
 
-/* ---------- فرم تماس ---------- */
-body.fa .form-control {
-    text-align: right;
+
+/* ============================================================
+   15. PROJECT BUTTON
+   ============================================================ */
+
+body.fa .project-btn {
     direction: rtl;
+}
+
+
+/* ============================================================
+   16. PROJECT AREA
+   ============================================================ */
+
+body.fa .project-area {
+    direction: rtl;
+}
+
+body.fa .project-area .section-title {
+    text-align: right;
+}
+
+
+/* ============================================================
+   17. TESTIMONIALS
+   ============================================================ */
+
+body.fa .testi-area {
+    direction: rtl;
+}
+
+body.fa .client-info.d-flex {
+    flex-direction: row-reverse;
+    direction: rtl;
+    gap: 15px;
+}
+
+.client-info.d-flex {
+    gap: 15px;
+}
+
+body.fa .client-details {
+    text-align: right !important;
+}
+
+body.fa .client-details p {
+    text-align: right;
+}
+
+
+/* Client image */
+
+.client-img img.rounded-circle {
+    border: 3px solid #eee;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Client comment */
+
+body.fa .client-comment {
+    direction: rtl;
+    text-align: right;
+}
+
+body.fa .client-comment p {
+    font-size: 15.5px !important;
+    line-height: 1.9 !important;
+}
+
+
+/* ============================================================
+   18. CONTACT FORM
+   ============================================================ */
+
+body.fa .contact-area {
+    direction: rtl;
+}
+
+body.fa .contact-form {
+    direction: rtl;
+}
+
+body.fa .form-control {
+    direction: rtl;
+    text-align: right;
     font-size: 15px !important;
 }
 
 body.fa .form-control::placeholder {
-    text-align: right;
     direction: rtl;
+    text-align: right;
     font-size: 15px !important;
 }
 
-/* ---------- فوتر ---------- */
+body.fa .form_button {
+    direction: rtl;
+}
+
+body.fa .contact-info {
+    direction: rtl;
+}
+
+
+/* ============================================================
+   19. FOOTER
+   ============================================================ */
+
+body.fa .footer {
+    direction: rtl;
+}
+
 body.fa .footer-list ul,
 body.fa .social_link ul {
     direction: rtl;
@@ -218,49 +503,108 @@ body.fa .social_link ul {
 
 body.fa .copyright_text {
     direction: rtl;
+    text-align: center;
     font-size: 14px !important;
 }
 
-/* فاصله دکمه‌ها */
-body.fa .mr-3 {
-    margin-right: 0 !important;
-    margin-left: 1rem !important;
-}
 
-/* تراز کلی */
-html[dir="rtl"] body {
-    text-align: right;
-}
+/* ============================================================
+   20. FOOTER LOGO
+   ============================================================ */
 
-body.fa .home-content,
-body.fa .section-title {
-    direction: rtl;
-}
-
-/* عنوان بخش خدمات و بقیه */
-body.fa .section-title .title {
-    font-size: 2.1rem !important;
-}
-
-/* ---------- کارت نظر Asad ---------- */
-.client-info.d-flex {
-    gap: 15px;
-}
-
-.client-img img.rounded-circle {
-    border: 3px solid #eee;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-}
-
-body.fa .client-details {
-    text-align: right !important;
-}
-
-body.fa .client-info.d-flex {
-    flex-direction: row-reverse; /* عکس سمت راست در فارسی */
-}
 @media (min-width: 992px) {
-    img[alt="Mahdi Yar Logo"] {
+
+    body.fa img[alt="Mahdi Yar Logo"] {
         transform: scale(1.35);
     }
+
 }
+
+
+/* ============================================================
+   21. MOBILE
+   ============================================================ */
+
+@media (max-width: 991.98px) {
+
+    body.fa #about .col-lg-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    body.fa .about_content_box {
+        margin-top: 30px;
+    }
+
+    body.fa .navbar-nav {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    body.fa .lang-btn {
+        margin-right: 0;
+    }
+
+}
+
+
+/* ============================================================
+   22. SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 575.98px) {
+
+    body.fa h1 {
+        font-size: 2rem !important;
+    }
+
+    body.fa h2 {
+        font-size: 1.7rem !important;
+    }
+
+    body.fa h3 {
+        font-size: 1.4rem !important;
+    }
+
+    body.fa .section-title .title {
+        font-size: 1.8rem !important;
+    }
+
+    body.fa .about_text p,
+    body.fa .client-comment p {
+        font-size: 15px !important;
+    }
+
+    body.fa .single-sevices p {
+        font-size: 14.5px !important;
+    }
+
+}
+
+
+
+   /* Fix About image ::after overlap in Persian / RTL */
+body.fa .about .about_img_box .about_img {
+    position: relative;
+    z-index: 1;
+}
+
+body.fa .about .about_img_box .about_img::after {
+    z-index: 0 !important;
+    pointer-events: none;
+}
+
+body.fa .about .about_img_box .about_img > * {
+    position: relative;
+    z-index: 1;
+}
+
+body.fa .about .about_content_box {
+    position: relative;
+    z-index: 2;
+}
+
+/* ============================================================
+   END
+   ============================================================ */
+
