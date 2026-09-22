@@ -259,3 +259,8 @@ body.fa .client-details {
 body.fa .client-info.d-flex {
     flex-direction: row-reverse; /* عکس سمت راست در فارسی */
 }
+@media (min-width: 992px) {
+    img[alt="Mahdi Yar Logo"] {
+        transform: scale(1.35);
+    }
+}
