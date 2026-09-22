@@ -1,0 +1,261 @@
+/* ============================================
+   custom-fa.css  (نسخه نهایی)
+   فونت وزیر + اندازه مناسب + رفع چسبیدن هدر
+   ============================================ */
+
+/* ---------- فونت وزیر ---------- */
+/* ---------- فونت وزیر (نسخه اصلاح‌شده – آیکون‌ها خراب نمی‌شن) ---------- */
+body.fa {
+    font-family: Vazir, Tahoma, sans-serif !important;
+}
+
+/* همه چیز به جز آیکون‌های Font Awesome */
+body.fa *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(i[class*="fa-"]) {
+    font-family: Vazir, Tahoma, sans-serif !important;
+}
+
+/* ---------- اندازه فونت‌ها (خیلی مهم) ---------- */
+body.fa {
+    font-size: 16px !important;          /* پایه */
+    line-height: 1.8 !important;
+}
+
+body.fa p {
+    font-size: 16px !important;
+    line-height: 1.9 !important;
+}
+
+body.fa .section-title p,
+body.fa .about_text p,
+body.fa .single-sevices p,
+body.fa .project-points li,
+body.fa .client-comment p {
+    font-size: 15.5px !important;
+    line-height: 1.9 !important;
+}
+
+/* عنوان‌های اصلی */
+body.fa h1 {
+    font-size: 2.6rem !important;
+}
+
+body.fa h2,
+body.fa .title {
+    font-size: 2rem !important;
+}
+
+body.fa h3 {
+    font-size: 1.5rem !important;
+}
+
+body.fa h4,
+body.fa h5 {
+    font-size: 1.25rem !important;
+}
+
+/* متن خدمات و معرفی */
+body.fa .section-title p {
+    font-size: 16px !important;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ---------- دکمه تغییر زبان ---------- */
+.lang-btn {
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 7px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px !important;
+    margin-left: 15px;
+    transition: background 0.3s ease;
+}
+
+.lang-btn:hover {
+    background: #444;
+}
+
+body.fa .lang-btn {
+    margin-left: 0;
+    margin-right: 15px;
+    font-size: 14px !important;
+}
+
+/* ---------- Navbar در RTL ---------- */
+body.fa .navbar {
+    direction: rtl;
+}
+
+body.fa .navbar-brand {
+    margin-right: 0;
+    margin-left: 1rem;
+}
+
+body.fa .navbar-nav {
+    margin-right: 0 !important;
+    margin-left: auto !important;
+}
+
+body.fa .navbar-nav .nav-link {
+    font-size: 15px !important;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+body.fa .navbar-toggler {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/* ---------- درباره من ---------- */
+body.fa .about_content_box {
+    text-align: right;
+}
+
+body.fa .about_text p {
+    text-align: right;
+    direction: rtl;
+    font-size: 16px !important;
+}
+
+body.fa .experience_box {
+    left: auto !important;
+    right: -15px;
+}
+
+/* ---------- خدمات ---------- */
+body.fa .single-sevices {
+    text-align: right;
+}
+
+body.fa .single-sevices p {
+    text-align: right;
+    direction: rtl;
+    font-size: 15px !important;
+    line-height: 1.8 !important;
+}
+
+body.fa .single-sevices .title {
+    font-size: 1.3rem !important;
+}
+
+/* ---------- پروژه‌ها ---------- */
+.project-points {
+    margin-top: 12px;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.8;
+    padding-left: 18px;
+}
+
+body.fa .project-points {
+    text-align: right;
+    padding-left: 0;
+    padding-right: 18px;
+    direction: rtl;
+    font-size: 14.5px !important;
+}
+
+.project-points li {
+    margin-bottom: 7px;
+}
+
+/* Extra points */
+.extra-points-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s ease;
+}
+
+.extra-points-wrapper.open {
+    max-height: 2500px;
+}
+
+.show-more-btn {
+    background: transparent;
+    border: 1px solid #ddd;
+    color: #555;
+    padding: 8px 16px;
+    font-size: 14px !important;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+    width: 100%;
+    display: block;
+}
+
+.show-more-btn:hover {
+    background: #f5f5f5;
+    border-color: #ccc;
+}
+
+body.fa .show-more-btn {
+    font-size: 14px !important;
+}
+
+/* ---------- فرم تماس ---------- */
+body.fa .form-control {
+    text-align: right;
+    direction: rtl;
+    font-size: 15px !important;
+}
+
+body.fa .form-control::placeholder {
+    text-align: right;
+    direction: rtl;
+    font-size: 15px !important;
+}
+
+/* ---------- فوتر ---------- */
+body.fa .footer-list ul,
+body.fa .social_link ul {
+    direction: rtl;
+}
+
+body.fa .copyright_text {
+    direction: rtl;
+    font-size: 14px !important;
+}
+
+/* فاصله دکمه‌ها */
+body.fa .mr-3 {
+    margin-right: 0 !important;
+    margin-left: 1rem !important;
+}
+
+/* تراز کلی */
+html[dir="rtl"] body {
+    text-align: right;
+}
+
+body.fa .home-content,
+body.fa .section-title {
+    direction: rtl;
+}
+
+/* عنوان بخش خدمات و بقیه */
+body.fa .section-title .title {
+    font-size: 2.1rem !important;
+}
+
+/* ---------- کارت نظر Asad ---------- */
+.client-info.d-flex {
+    gap: 15px;
+}
+
+.client-img img.rounded-circle {
+    border: 3px solid #eee;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+body.fa .client-details {
+    text-align: right !important;
+}
+
+body.fa .client-info.d-flex {
+    flex-direction: row-reverse; /* عکس سمت راست در فارسی */
+}

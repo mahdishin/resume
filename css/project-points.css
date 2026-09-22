@@ -1,0 +1,114 @@
+/* ==============================
+   Portfolio Hover + Project Points
+   ============================== */
+
+.port-caption {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.port-caption img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+/* Overlay */
+.port-caption .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.82);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 15px;
+    box-sizing: border-box;
+}
+
+/* Hover Effect */
+.port-caption:hover .overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.port-caption:hover img {
+    transform: scale(1.08);
+}
+
+/* Content inside overlay */
+.port-caption .view-more {
+    width: 100%;
+    text-align: center;
+    color: #fff;
+}
+
+.port-caption .view-more h5.title {
+    font-size: 1.25rem !important;
+    margin: 0 0 12px 0 !important;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Link icon */
+.view-more a {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: #2c2c2c;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.view-more a:hover {
+    color: #ffc107;
+}
+
+/* ========== Project Points List ========== */
+.project-points {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 240px;
+    text-align: right;
+}
+
+body:not(.fa) .project-points {
+    text-align: left;
+}
+
+.project-points li {
+    position: relative;
+    color: #3a3a3a;
+    font-size: 13px !important;
+    line-height: 1.6;
+    margin-bottom: 7px;
+    padding-right: 16px;
+}
+
+body:not(.fa) .project-points li {
+    padding-right: 0;
+    padding-left: 16px;
+}
+
+/* Yellow bullet */
+.project-points li::before {
+    content: "•";
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #ffc107;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+body:not(.fa) .project-points li::before {
+    right: auto;
+    left: 0;
+}
