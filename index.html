@@ -72,7 +72,9 @@
                 <li class="nav-item"><a class="nav-link" href="#portfolio" data-scroll-nav="3" data-en="Portfolio" data-fa="پروژه‌ها">Portfolio</a></li>
                 <li class="nav-item"><a class="nav-link" href="#contact" data-scroll-nav="5" data-en="Contact" data-fa="تماس">Contact</a></li>
                 <li class="nav-item">
-                    <button class="lang-btn" id="langToggle" type="button">فارسی</button>
+                    <button id="langToggle" class="lang-toggle" type="button">
+                        <span class="lang-label">فارسی</span>
+                    </button>
                 </li>
             </ul>
         </div>
@@ -593,35 +595,93 @@
 
     <!-- Language Switch + Contact Form -->
     <script>
-        let currentLang = 'en';
 
         // Language Toggle
-        document.getElementById('langToggle').addEventListener('click', function() {
-            currentLang = currentLang === 'en' ? 'fa' : 'en';
-            
-            // دکمه
-            this.textContent = currentLang === 'en' ? 'فارسی' : 'English';
-            
-            // html
-            document.documentElement.lang = currentLang;
-            document.documentElement.dir = currentLang === 'fa' ? 'rtl' : 'ltr';
-            
-            // body class برای فونت و استایل
-            document.body.classList.toggle('fa', currentLang === 'fa');
-            
-            // متن‌ها
-            document.querySelectorAll('[data-en]').forEach(el => {
-                if (el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA') {
-                    el.innerHTML = el.getAttribute('data-' + currentLang);
-                }
-            });
-            
-            // placeholderها
-            document.querySelectorAll('[data-en-placeholder]').forEach(el => {
-                el.placeholder = el.getAttribute('data-' + currentLang + '-placeholder');
-            });
-        });
+            let currentLang = 'en';
 
+            const langToggle = document.getElementById('langToggle');
+
+
+            // =========================
+            // Apply Language
+            // =========================
+            function applyLanguage(lang) {
+                currentLang = lang;
+
+                // HTML direction & language
+                document.documentElement.lang = currentLang;
+                document.documentElement.dir = currentLang === 'fa' ? 'rtl' : 'ltr';
+
+                // Persian CSS
+                document.body.classList.toggle('fa', currentLang === 'fa');
+
+                // Language button
+                const label = langToggle.querySelector('.lang-label');
+
+                if (label) {
+                    label.textContent =
+                        currentLang === 'fa' ? 'English' : 'فارسی';
+                }
+
+                // Change all translated elements
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    if (el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA') {
+                        const text = el.getAttribute('data-' + currentLang);
+
+                        if (text !== null) {
+                            el.innerHTML = text;
+                        }
+                    }
+                });
+
+                // Change placeholders
+                document.querySelectorAll('[data-en-placeholder]').forEach(el => {
+                    const placeholder =
+                        el.getAttribute('data-' + currentLang + '-placeholder');
+
+                    if (placeholder !== null) {
+                        el.placeholder = placeholder;
+                    }
+                });
+            }
+
+
+            // =========================
+            // Detect Language from URL
+            // =========================
+            const params = new URLSearchParams(window.location.search);
+
+            const urlLang = params.get('lang');
+
+            if (urlLang === 'fa') {
+                currentLang = 'fa';
+            } else {
+                currentLang = 'en';
+            }
+
+
+            // =========================
+            // Initial Language
+            // =========================
+            applyLanguage(currentLang);
+
+
+            // =========================
+            // Language Toggle
+            // =========================
+            langToggle.addEventListener('click', function () {
+
+                const newLang = currentLang === 'en' ? 'fa' : 'en';
+
+                // Update URL
+                const url = new URL(window.location.href);
+                url.searchParams.set('lang', newLang);
+
+                window.history.pushState({}, '', url);
+
+                // Apply new language
+                applyLanguage(newLang);
+            });
         // Show more / less
         function togglePoints(btn) {
             const wrapper = btn.previousElementSibling;

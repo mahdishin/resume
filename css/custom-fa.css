@@ -108,8 +108,9 @@ body.fa .navbar-brand {
 }
 
 body.fa .navbar-nav {
-    margin-right: auto !important;
+    margin-right: 0 !important;
     margin-left: 0 !important;
+    transform: translateX(-90px);
 }
 
 body.fa .navbar-nav .nav-link {
@@ -604,6 +605,157 @@ body.fa .about .about_content_box {
     z-index: 2;
 }
 
+/* Language toggle button */
+.lang-toggle {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+
+    min-width: 65px;
+    padding: 6px 12px;
+
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    background: transparent;
+
+    color: inherit;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.4;
+
+    cursor: pointer;
+    transition: background-color 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+}
+
+.lang-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.25);
+    transform: translateY(-1px);
+}
+
+.lang-toggle .lang-label {
+    font-weight: 600;
+}
+
+.lang-toggle .lang-flag {
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+/* Keep the button aligned with navbar links */
+.navbar .lang-toggle {
+    vertical-align: middle;
+    margin: 0;
+}
+
+/* Persian mode */
+body.fa .lang-toggle {
+    font-family: Vazir, Tahoma, sans-serif;
+}
+
+.lang-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 68px;
+    height: 38px;
+    padding: 0;
+
+    border: none;
+    border-radius: 7px;
+
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+    overflow: hidden;
+
+    background-size: cover;
+    background-position: center;
+}
+
+body.fa .lang-toggle {
+    background-image: url("../images/uk.png");
+}
+
+body:not(.fa) .lang-toggle {
+    background-image: url("../images/iran.png");
+}
+
+/* لایه‌ی تیره فقط روی پرچم */
+.lang-toggle::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.39);
+    z-index: 1;
+}
+
+.lang-toggle .lang-label {
+    position: relative;
+    z-index: 2;
+
+    padding: 0;
+    background: transparent;
+
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* =========================
+   Header alignment
+   ========================= */
+
+/* همه آیتم‌های هدر در یک خط و از نظر عمودی وسط */
+.navbar {
+    align-items: center !important;
+}
+
+.navbar-nav {
+    align-items: center !important;
+}
+
+/* دکمه تغییر زبان هم دقیقاً وسط خط قرار بگیرد */
+.navbar .lang-toggle {
+    display: inline-flex !important;
+    vertical-align: middle !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    transform: none;
+}
+
+/* فاصله مناسب دکمه زبان با بقیه آیتم‌ها */
+.navbar .lang-toggle {
+    margin-left: 8px !important;
+    margin-right: 8px !important;
+}
+
+/* =========================
+   Center header content
+   ========================= */
+
+@media (min-width: 992px) {
+    .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar .navbar-nav {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
 /* ============================================================
    END
    ============================================================ */
