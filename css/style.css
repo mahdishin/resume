@@ -1,10 +1,9 @@
-
 /*=================================================
  == Table Of Content
 
     1. TYPOGRAPHY 
     2. GLOBAL STYLES
-    3. NAVGITION
+    3. NAVIGATION (Dynamic Island)
     4. HEADER 
     5. ABOUT
     6. SERVICES
@@ -16,6 +15,9 @@
     12. SUBSCRIBE
     13. CONTACT
     14. FOOTER
+    15. PROJECT CARD
+    16. EXPAND / COLLAPSE
+    17. CONTACT SOCIAL
 
 */
 /*---------------------------------------
@@ -70,6 +72,7 @@ body {
     line-height: 1.6;
     letter-spacing: .08rem;
     font-weight: 400;
+    padding-top: 0;
 }
 
 .section-title .title {
@@ -178,7 +181,7 @@ button:active {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 9999999;
+    z-index: 10000;
     overflow: hidden;
 }
 
@@ -209,7 +212,6 @@ button:active {
     }
 }
 
-/*------ scaleout ------*/
 @keyframes scaleout {
     0% {
         -webkit-transform: scale(0);
@@ -271,7 +273,6 @@ button:active {
 }
 
 /*------ button------- */
-
 .y-button {
     display: inline-block;
     font-size: 14px;
@@ -297,60 +298,243 @@ button:active {
 }
 
 /* --------------------------------------
-  3. NAVIGATION
+  3. NAVIGATION (Dynamic Island)
 -----------------------------------------*/
+
+/* حالت اولیه: دایره */
 .navbar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    border: 0;
-    background: #333333;
-    z-index: 99;
-    min-height: 80px;
-    box-shadow: 0px 34px 150px 0px rgba(0, 0, 0, 0.5);
-    transition: all 0.5s
+    position: fixed !important;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-120%);
+    width: 58px;
+    height: 58px;
+    min-width: 58px;
+    max-width: 58px;
+    border-radius: 50%;
+    background: rgba(18, 18, 22, 0.85) !important;
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+    padding: 0 !important;
+    z-index: 9999;
+    opacity: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        width 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        max-width 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        height 0.5s ease,
+        border-radius 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        padding 0.5s ease,
+        opacity 0.5s ease,
+        box-shadow 0.4s ease,
+        background 0.3s ease;
 }
 
-nav.scrollUp {
-    transform: translateY(-90px);
+/* ظاهر شدن به صورت دایره */
+.navbar.island-visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
 }
 
-.navbar-brand .logo {
-    width: 50%;
-    height: 50%;
-    margin-left: 2rem;
+/* حالت باز شده (Dynamic Island) */
+.navbar.island-expanded {
+    width: auto;
+    max-width: 92%;
+    min-width: 320px;
+    height: auto;
+    border-radius: 50px;
+    padding: 8px 18px !important;
+    justify-content: flex-start;
+    overflow: visible;
 }
 
-.navbar .icon-bar {
-    color: #fff;
-    margin-right: 15px;
+/* افکت برق / درخشش موقع باز شدن */
+.navbar.island-flash {
+    box-shadow:
+        0 0 0 2px rgba(149, 3, 247, 0.6),
+        0 0 28px 8px rgba(149, 3, 247, 0.45),
+        0 0 60px 16px rgba(149, 3, 247, 0.2),
+        0 10px 40px rgba(0, 0, 0, 0.4);
+    border-color: rgba(200, 120, 255, 0.5);
 }
 
-.navbar .navbar-nav .active {
-    color: rgb(255, 0, 102) !important;
+/* حالت اسکرول */
+.navbar.scrolled {
+    background: rgba(12, 12, 16, 0.9) !important;
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset;
 }
 
-.navbar .navbar-nav .nav-link:hover {
-    -webkit-transition: all 200ms ease-in;
-    -webkit-transform: scale(1.1);
-    -ms-transition: all 200ms ease-in;
-    -ms-transform: scale(1.1);
-    -moz-transition: all 200ms ease-in;
-    -moz-transform: scale(1.1);
-    transition: all 200ms ease-in;
-    transform: scale(1.1);
+/* لوگو - کاملاً صاف و سالم */
+.navbar .navbar-brand {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
-.navbar-collapse .navbar-nav .nav-link {
-    text-align: center;
-    color: #fff;
-    padding: 15px;
-    margin: 1rem;
+.navbar .logo {
+    height: 36px !important;
+    width: auto !important;
+    max-width: 36px;
+    border-radius: 0 !important;   /* دیگه گرد نمی‌شه */
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    margin: 0;
+}
+
+.navbar.island-expanded .logo {
+    max-width: none;
+    height: 34px !important;
+}
+
+.navbar .logo:hover {
+    transform: scale(1.06);
+}
+
+/* منو لینک‌ها - مخفی تا وقتی باز بشه */
+.navbar-nav {
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease 0.15s, visibility 0.4s ease 0.15s;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar.island-expanded .navbar-nav {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* دکمه‌های منو - طراحی تمیزتر */
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.82) !important;
+    font-size: 13.5px;
     font-weight: 500;
-    letter-spacing: 1px;
+    padding: 7px 15px !important;
+    border-radius: 30px;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    margin: 0;
+    letter-spacing: 0.3px;
+    position: relative;
+    background: transparent;
 }
 
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.13);
+    transform: none;
+}
+
+/* خط زیر لینک فعال (اختیاری و قشنگ) */
+.navbar-nav .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 2px;
+    background: #c06bff;
+    border-radius: 2px;
+}
+
+/* دکمه زبان - همون خوبه */
+.lang-toggle {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #fff;
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-size: 12.5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-left: 8px;
+    white-space: nowrap;
+}
+
+.lang-toggle:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: scale(1.04);
+    border-color: rgba(255, 255, 255, 0.28);
+}
+
+/* دکمه همبرگری */
+.navbar-toggler {
+    border: none;
+    padding: 4px 6px;
+    color: #fff;
+    outline: none !important;
+    box-shadow: none !important;
+    margin-left: auto;
+}
+
+.navbar-toggler .icon-bar {
+    color: #fff;
+}
+
+.navbar-collapse {
+    background: transparent;
+}
+
+/* موبایل */
+@media (max-width: 991.98px) {
+    .navbar.island-expanded {
+        width: calc(100% - 28px);
+        max-width: 420px;
+        min-width: 280px;
+        border-radius: 28px;
+        padding: 10px 14px !important;
+    }
+
+    .navbar-collapse {
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-nav {
+        gap: 3px;
+        padding-bottom: 4px;
+        width: 100%;
+    }
+
+    .navbar-nav .nav-link {
+        text-align: center;
+        padding: 10px 14px !important;
+        width: 100%;
+    }
+
+    .lang-toggle {
+        width: 100%;
+        margin: 8px 0 2px;
+        text-align: center;
+    }
+
+    .navbar .logo {
+        height: 32px !important;
+    }
+}
+
+/*---------------------------------------
+  4. HEADER                
+-----------------------------------------*/
 /*---------------------------------------
   4. HEADER                
 -----------------------------------------*/
@@ -359,6 +543,57 @@ nav.scrollUp {
     background: url("../img/hero.jpg") no-repeat center;
     background-size: cover;
     clip-path: circle(78.1% at 64% 0);
+    padding-top: 100px;
+}
+
+/* موبایل و تبلت - عکس کامل‌تر و بزرگ‌تر */
+@media (max-width: 991px) {
+    .home {
+        padding: 18rem 0 14rem;
+        padding-top: 90px;
+        /* موقعیت عکس رو کمی بالاتر می‌بریم تا صورت کامل‌تر دیده بشه */
+        background-position: center 20%;
+        background-size: cover;
+        /* کلیپ‌پث رو نرم‌تر و بزرگ‌تر می‌کنیم */
+        clip-path: circle(95% at 50% -10%);
+    }
+
+    .home-content {
+        margin-top: 10px;
+    }
+
+    .home-content h1 {
+        font-size: 4.8rem;
+        margin-top: 10px;
+    }
+
+    .home-content h4 {
+        font-size: 1.7rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .home {
+        padding: 16rem 0 12rem;
+        padding-top: 80px;
+        /* روی گوشی‌های کوچیک‌تر صورت رو بیشتر مرکز می‌کنیم */
+        background-position: center 18%;
+        background-size: 140%;          /* کمی زوم بیشتر */
+        clip-path: circle(100% at 50% -5%);
+    }
+
+    .home-content h1 {
+        font-size: 3.8rem;
+    }
+
+    .home-content h4 {
+        font-size: 1.5rem;
+        line-height: 1.5;
+    }
+
+    .home-content .y-button {
+        margin-top: 10px;
+    }
 }
 
 .home-content h1 {
@@ -419,6 +654,7 @@ nav.scrollUp {
 @media (max-width: 991px) {
     .home {
         padding: 23rem 0;
+        padding-top: 90px;
     }
 }
 
@@ -426,6 +662,7 @@ nav.scrollUp {
 @media (max-width: 768px) {
     .home {
         padding: 25rem 0;
+        padding-top: 80px;
     }
 
     .home-content {
@@ -518,7 +755,6 @@ nav.scrollUp {
 
 /*------ width 1200 > 991px ------*/
 @media only screen and (min-width: 992px) and (max-width : 1200px) {
-
     .about .about_content_box h2 {
         font-size: 32px;
     }
@@ -530,7 +766,6 @@ nav.scrollUp {
     .about .about_content_box p {
         margin-bottom: 10px;
     }
-
 }
 
 /*------ width 991 > 768px ------*/
@@ -546,7 +781,6 @@ nav.scrollUp {
 
 /*------ width < 768px ------*/
 @media only screen and (max-width : 767px) {
-
     .about .about_img_box {
         margin-bottom: 60px;
     }
@@ -686,7 +920,7 @@ nav.scrollUp {
 }
 
 /* ----------------------------------------------------------------
-  8. PORFOLIO
+  8. PORTFOLIO
 -----------------------------------------------------------------*/
 .portfolio .port-title h2 {
     margin-bottom: 60px;
@@ -805,9 +1039,8 @@ nav.scrollUp {
 }
 
 /* --------------------------------------
-  9.PROJECT-AREA
+  9. PROJECT-AREA
 -----------------------------------------*/
-
 .project-area {
     background-repeat: no-repeat !important;
     background-position: center top !important;
@@ -815,7 +1048,7 @@ nav.scrollUp {
 }
 
 /* --------------------------------------
-  10.TESTIMONIALS
+  10. TESTIMONIALS
 -----------------------------------------*/
 .testi-area {
     padding: 110px 0 160px
@@ -997,7 +1230,6 @@ nav.scrollUp {
     -ms-transition: all 0.3s ease-out 0s;
     -o-transition: all 0.3s ease-out 0s;
     transition: all 0.3s ease-out 0s;
-
 }
 
 .blog-area .single-blog .blog-content p {
@@ -1037,7 +1269,6 @@ nav.scrollUp {
 .blog-area .single-blog:hover .blog-content .title {
     color: #9503f7;
 }
-
 
 /* ----------------------------------------------------------------
   12. SUBSCRIBE
@@ -1152,8 +1383,8 @@ textarea.form-control {
 }
 
 /*---------------------------------------
-  14.FOOTER
-  ---------------------------------------*/
+  14. FOOTER
+---------------------------------------*/
 .footer {
     padding: 80px 0;
     background: #000;
@@ -1173,7 +1404,6 @@ textarea.form-control {
     .footer .social_link {
         float: none;
     }
-
 }
 
 /*------ width < 767px ------*/
@@ -1253,10 +1483,10 @@ textarea.form-control {
 .footer_copyright .copyright_text p {
     color: #FFF;
 }
-/* ==============================
-   New Fixed Project Card
-   ============================== */
 
+/* ==============================
+   15. PROJECT CARD
+   ============================== */
 .project-card {
     background: #ffffff;
     border-radius: 12px;
@@ -1329,7 +1559,7 @@ body:not(.fa) .project-points li {
     padding-left: 18px;
 }
 
-/* Yellow bullet */
+/* Purple bullet */
 .project-points li::before {
     content: "•";
     position: absolute;
@@ -1377,10 +1607,10 @@ body.fa .project-points li {
 body.fa .project-btn {
     font-size: 14.5px;
 }
-/* ==============================
-   Smooth Expand / Collapse Effect
-   ============================== */
 
+/* ==============================
+   16. SMOOTH EXPAND / COLLAPSE
+   ============================== */
 .extra-points-wrapper {
     max-height: 0;
     overflow: hidden;
@@ -1389,7 +1619,7 @@ body.fa .project-btn {
 }
 
 .extra-points-wrapper.open {
-    max-height: 1000px; /* مقدار کافی بزرگ */
+    max-height: 1000px;
     opacity: 1;
 }
 
@@ -1422,7 +1652,9 @@ body.fa .show-more-btn {
     font-size: 13.5px;
 }
 
-/* ---------- بزرگ‌تر کردن ایمیل و آیکون‌های شبکه‌های اجتماعی ---------- */
+/* ==============================
+   17. CONTACT SOCIAL
+   ============================== */
 .contact-info {
     margin-top: 2rem;
 }
@@ -1439,7 +1671,7 @@ body.fa .show-more-btn {
 }
 
 .contact-email a:hover {
-    color: #7602fc; /* یا رنگ اصلی سایتت */
+    color: #7602fc;
 }
 
 .social-icons a {
@@ -1453,7 +1685,7 @@ body.fa .show-more-btn {
 }
 
 .social-icons .fa {
-    font-size: 6rem !important; /* کمی بزرگ‌تر از fa-3x */
+    font-size: 6rem !important;
 }
 
 /* در حالت فارسی */
@@ -1464,4 +1696,173 @@ body.fa .contact-email a {
 
 body.fa .social-icons .fa {
     font-size: 4rem !important;
+}
+
+/* ==============================
+   Full-Width Project Card (Video on Top)
+   ============================== */
+
+.project-card-full {
+    display: flex;
+    flex-direction: column;   /* ویدیو بالا، محتوا پایین */
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    margin-bottom: 40px;
+}
+
+/* ویدیو */
+.project-media {
+    width: 100%;
+    background: #0d0d0d;
+    position: relative;
+    line-height: 0;          /* فضای خالی سیاه رو حذف می‌کنه */
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #000;
+}
+
+.project-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    vertical-align: top;
+}
+
+/* دکمه پلی / پاز وسط */
+.center-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    font-size: 26px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.center-play-btn i {
+    margin-left: 3px; /* کمی تنظیم برای آیکون پلی */
+}
+
+.project-media:hover .center-play-btn,
+.project-media.paused .center-play-btn {
+    opacity: 1;
+    visibility: visible;
+}
+
+.center-play-btn:hover {
+    background: #9503f7;
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* دکمه صدا */
+.video-controls {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    display: flex;
+    gap: 8px;
+    z-index: 6;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.project-media:hover .video-controls {
+    opacity: 1;
+    visibility: visible;
+}
+
+.video-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(6px);
+}
+
+.video-btn:hover {
+    background: #9503f7;
+    transform: scale(1.08);
+}
+
+/* محتوای زیر ویدیو */
+.project-card-full .project-content {
+    width: 100%;
+    padding: 32px 40px 36px;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card-full .project-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #222;
+}
+
+.project-card-full .project-points {
+    margin-bottom: 16px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.project-card-full .project-btn {
+    align-self: center;
+    margin-top: 10px;
+}
+
+.show-more-btn {
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* موبایل */
+@media (max-width: 767px) {
+    .project-card-full .project-content {
+        padding: 24px 20px 28px;
+    }
+
+    .center-play-btn {
+        width: 58px;
+        height: 58px;
+        font-size: 22px;
+    }
+
+    .video-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+    }
 }
