@@ -2,10 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://mahdiyarahmadi.ir/</loc>
+        <loc>https://mahdiyarahmadi.ir/?lang=en</loc>
         <lastmod>2026-09-22</lastmod>
         <changefreq>monthly</changefreq>
         <priority>1.0</priority>
     </url>
-
+    <url>
+        <loc>https://mahdiyarahmadi.ir/?lang=fa</loc>
+        <lastmod>2026-09-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>1.0</priority>
+    </url>
 </urlset>
