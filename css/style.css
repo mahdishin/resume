@@ -296,7 +296,6 @@ button:active {
     background: #fff;
     transition: all 2s ease-in-out;
 }
-
 /* --------------------------------------
   3. NAVIGATION (Dynamic Island)
 -----------------------------------------*/
@@ -304,15 +303,15 @@ button:active {
 /* حالت اولیه: دایره */
 .navbar {
     position: fixed !important;
-    top: 20px;
+    top: 18px;
     left: 50%;
-    transform: translateX(-50%) translateY(-120%);
-    width: 58px;
-    height: 58px;
-    min-width: 58px;
-    max-width: 58px;
+    transform: translateX(-50%) translateY(-130%);
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    max-width: 56px;
     border-radius: 50%;
-    background: rgba(18, 18, 22, 0.85) !important;
+    background: rgba(18, 18, 22, 0.88) !important;
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.14);
@@ -327,15 +326,8 @@ button:active {
     align-items: center;
     justify-content: center;
     transition:
-        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-        width 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-        max-width 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-        height 0.5s ease,
-        border-radius 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-        padding 0.5s ease,
-        opacity 0.5s ease,
-        box-shadow 0.4s ease,
-        background 0.3s ease;
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.5s ease;
 }
 
 /* ظاهر شدن به صورت دایره */
@@ -344,37 +336,48 @@ button:active {
     opacity: 1;
 }
 
-/* حالت باز شده (Dynamic Island) */
+/* حالت باز شده */
 .navbar.island-expanded {
     width: auto;
     max-width: 92%;
-    min-width: 320px;
+    min-width: 300px;
     height: auto;
     border-radius: 50px;
-    padding: 8px 18px !important;
+    padding: 8px 16px !important;
     justify-content: flex-start;
     overflow: visible;
+    transition:
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.5s ease,
+        width 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        max-width 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        min-width 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        height 0.5s ease,
+        border-radius 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+        padding 0.5s ease,
+        box-shadow 0.4s ease,
+        background 0.3s ease;
 }
 
-/* افکت برق / درخشش موقع باز شدن */
+/* افکت برق موقع باز شدن */
 .navbar.island-flash {
     box-shadow:
-        0 0 0 2px rgba(149, 3, 247, 0.6),
-        0 0 28px 8px rgba(149, 3, 247, 0.45),
-        0 0 60px 16px rgba(149, 3, 247, 0.2),
+        0 0 0 2px rgba(149, 3, 247, 0.55),
+        0 0 24px 6px rgba(149, 3, 247, 0.4),
+        0 0 50px 12px rgba(149, 3, 247, 0.18),
         0 10px 40px rgba(0, 0, 0, 0.4);
-    border-color: rgba(200, 120, 255, 0.5);
+    border-color: rgba(200, 120, 255, 0.45);
 }
 
 /* حالت اسکرول */
 .navbar.scrolled {
-    background: rgba(12, 12, 16, 0.9) !important;
+    background: rgba(12, 12, 16, 0.92) !important;
     box-shadow:
         0 12px 40px rgba(0, 0, 0, 0.5),
         0 0 0 1px rgba(255, 255, 255, 0.08) inset;
 }
 
-/* لوگو - کاملاً صاف و سالم */
+/* لوگو */
 .navbar .navbar-brand {
     padding: 0;
     margin: 0;
@@ -382,34 +385,41 @@ button:active {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    max-width: 40px;
+    overflow: hidden;
 }
 
 .navbar .logo {
-    height: 36px !important;
+    height: 32px !important;
     width: auto !important;
-    max-width: 36px;
-    border-radius: 0 !important;   /* دیگه گرد نمی‌شه */
+    max-width: 36px !important;
+    border-radius: 0 !important;
     object-fit: contain;
     transition: transform 0.3s ease;
-    margin: 0;
+    margin: 0 !important;
+    display: block;
+}
+
+.navbar.island-expanded .navbar-brand {
+    max-width: 120px;
 }
 
 .navbar.island-expanded .logo {
-    max-width: none;
-    height: 34px !important;
+    height: 30px !important;
+    max-width: 110px !important;
 }
 
 .navbar .logo:hover {
-    transform: scale(1.06);
+    transform: scale(1.05);
 }
 
-/* منو لینک‌ها - مخفی تا وقتی باز بشه */
+/* منو لینک‌ها */
 .navbar-nav {
     align-items: center;
-    gap: 4px;
+    gap: 3px;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.4s ease 0.15s, visibility 0.4s ease 0.15s;
+    transition: opacity 0.35s ease 0.2s, visibility 0.35s ease 0.2s;
     margin: 0;
     padding: 0;
 }
@@ -419,42 +429,44 @@ button:active {
     visibility: visible;
 }
 
-/* دکمه‌های منو - طراحی تمیزتر */
+/* دکمه‌های منو */
 .navbar-nav .nav-link {
-    color: rgba(255, 255, 255, 0.82) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
     font-size: 13.5px;
     font-weight: 500;
-    padding: 7px 15px !important;
+    padding: 8px 16px !important;
     border-radius: 30px;
-    transition: all 0.25s ease;
+    transition: all 0.28s ease;
     white-space: nowrap;
-    margin: 0;
-    letter-spacing: 0.3px;
-    position: relative;
+    margin: 0 1px;
+    letter-spacing: 0.4px;
     background: transparent;
+    position: relative;
 }
 
-.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:hover {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-1px);
+}
+
 .navbar-nav .nav-link.active {
     color: #fff !important;
-    background: rgba(255, 255, 255, 0.13);
-    transform: none;
+    background: rgba(149, 3, 247, 0.25);
+    box-shadow: 0 0 0 1px rgba(149, 3, 247, 0.35);
 }
 
-/* خط زیر لینک فعال (اختیاری و قشنگ) */
 .navbar-nav .nav-link.active::after {
     content: '';
     position: absolute;
-    bottom: 4px;
+    bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
-    width: 14px;
+    width: 12px;
     height: 2px;
     background: #c06bff;
     border-radius: 2px;
 }
-
-/* دکمه زبان - همون خوبه */
 .lang-toggle {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.16);
@@ -485,6 +497,11 @@ button:active {
     margin-left: auto;
 }
 
+body.fa .navbar-toggler {
+    margin-left: 0;
+    margin-right: auto;
+}
+
 .navbar-toggler .icon-bar {
     color: #fff;
 }
@@ -493,48 +510,81 @@ button:active {
     background: transparent;
 }
 
-/* موبایل */
+/* ========== موبایل ========== */
 @media (max-width: 991.98px) {
+
+    .navbar {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+        max-width: 52px;
+        top: 14px;
+    }
+
+    .navbar .logo {
+        height: 28px !important;
+        max-width: 32px !important;
+    }
+
     .navbar.island-expanded {
-        width: calc(100% - 28px);
-        max-width: 420px;
-        min-width: 280px;
-        border-radius: 28px;
-        padding: 10px 14px !important;
+        width: calc(100% - 24px);
+        max-width: 400px;
+        min-width: 260px;
+        border-radius: 26px;
+        padding: 9px 12px !important;
+        transition:
+            transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+            opacity 0.45s ease,
+            width 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+            max-width 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+            min-width 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+            height 0.55s ease,
+            border-radius 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+            padding 0.55s ease,
+            box-shadow 0.4s ease;
+    }
+
+    .navbar.island-expanded .logo {
+        height: 26px !important;
+        max-width: 100px !important;
+    }
+
+    .navbar.island-expanded .navbar-brand {
+        max-width: 100px;
     }
 
     .navbar-collapse {
-        margin-top: 12px;
+        margin-top: 10px;
         padding-top: 10px;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .navbar-nav {
-        gap: 3px;
+        gap: 2px;
         padding-bottom: 4px;
         width: 100%;
     }
 
     .navbar-nav .nav-link {
         text-align: center;
-        padding: 10px 14px !important;
+        padding: 11px 16px !important;
         width: 100%;
+        font-size: 14px;
+        margin: 2px 0;
+    }
+
+    .navbar-nav .nav-link.active::after {
+        bottom: 6px;
     }
 
     .lang-toggle {
         width: 100%;
-        margin: 8px 0 2px;
+        margin: 10px 0 4px !important;
         text-align: center;
-    }
-
-    .navbar .logo {
-        height: 32px !important;
+        padding: 10px 16px;
     }
 }
 
-/*---------------------------------------
-  4. HEADER                
------------------------------------------*/
 /*---------------------------------------
   4. HEADER                
 -----------------------------------------*/

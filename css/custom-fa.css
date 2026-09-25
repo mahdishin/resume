@@ -9,11 +9,6 @@
    1. PERSIAN FONT
    ============================================================ */
 
-/*
-   فقط عناصر متنی از Vazir استفاده می‌کنند.
-   Font Awesome دست‌نخورده باقی می‌ماند.
-*/
-
 body.fa,
 body.fa p,
 body.fa h1,
@@ -42,7 +37,7 @@ body.fa {
 
 
 /* ============================================================
-   2. GLOBAL RTL / OVERFLOW PROTECTION
+   2. GLOBAL RTL / OVERFLOW
    ============================================================ */
 
 html[dir="rtl"] {
@@ -95,7 +90,7 @@ body.fa .client-comment p {
 
 
 /* ============================================================
-   4. NAVBAR
+   4. NAVBAR (RTL)
    ============================================================ */
 
 body.fa .navbar {
@@ -110,7 +105,6 @@ body.fa .navbar-brand {
 body.fa .navbar-nav {
     margin-right: 0 !important;
     margin-left: 0 !important;
-    transform: translateX(-90px);
 }
 
 body.fa .navbar-nav .nav-link {
@@ -121,33 +115,98 @@ body.fa .navbar-nav .nav-link {
 
 body.fa .navbar-toggler {
     margin-left: 0;
+    margin-right: auto;
+}
+
+.navbar {
+    align-items: center !important;
+}
+
+.navbar-nav {
+    align-items: center !important;
 }
 
 
 /* ============================================================
-   5. LANGUAGE BUTTON
+   5. LANGUAGE TOGGLE (با پرچم پس‌زمینه)
    ============================================================ */
 
-.lang-btn {
-    background: #222;
+.lang-toggle {
+    position: relative;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+
+    width: 72px;
+    height: 36px;
+    padding: 0;
+    margin-left: 8px;
+    margin-right: 8px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    overflow: hidden;
+
     color: #fff;
-    border: none;
-    padding: 7px 16px;
-    border-radius: 4px;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+
     cursor: pointer;
-    font-size: 14px !important;
-    margin-left: 15px;
-    transition: background 0.3s ease;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    transition: all 0.28s ease;
+    vertical-align: middle;
 }
 
-.lang-btn:hover {
-    background: #444;
+/* پرچم ایران وقتی سایت انگلیسی است */
+body:not(.fa) .lang-toggle {
+    background-image: url("../images/iran.png");
 }
 
-body.fa .lang-btn {
-    margin-left: 0;
-    margin-right: 15px;
-    font-size: 14px !important;
+/* پرچم انگلیس وقتی سایت فارسی است */
+body.fa .lang-toggle {
+    background-image: url("../images/uk.png");
+    font-family: Vazir, Tahoma, sans-serif;
+}
+
+/* لایه تیره روی پرچم */
+.lang-toggle::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.42);
+    z-index: 1;
+    transition: background 0.25s ease;
+}
+
+.lang-toggle:hover::before {
+    background: rgba(0, 0, 0, 0.28);
+}
+
+.lang-toggle:hover {
+    transform: translateY(-1px);
+    border-color: rgba(192, 107, 255, 0.5);
+    box-shadow: 0 4px 14px rgba(149, 3, 247, 0.25);
+}
+
+/* متن روی پرچم */
+.lang-toggle .lang-label {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+    padding: 0;
+    background: transparent;
+    font-weight: 600;
+}
+
+/* اگر ایموجی پرچم بود مخفی شود */
+.lang-toggle .lang-flag {
+    display: none;
 }
 
 
@@ -165,12 +224,6 @@ body.fa .home-content {
    7. ABOUT
    ============================================================ */
 
-/*
-   مهم:
-   Bootstrap Grid نباید در RTL خراب شود.
-   در دسکتاپ هر دو ستون همچنان 50% باقی می‌مانند.
-*/
-
 body.fa #about {
     direction: rtl;
 }
@@ -180,7 +233,6 @@ body.fa #about .row {
 }
 
 @media (min-width: 992px) {
-
     body.fa #about .row {
         display: flex;
         flex-direction: row;
@@ -195,6 +247,8 @@ body.fa #about .row {
 
 body.fa .about_content_box {
     text-align: right;
+    position: relative;
+    z-index: 2;
 }
 
 body.fa .about_text {
@@ -212,21 +266,25 @@ body.fa .about_img_box {
     direction: ltr;
 }
 
+body.fa .about .about_img_box .about_img {
+    position: relative;
+    z-index: 1;
+}
 
-/*
-   Experience box
-   مقدار منفی حذف شده تا باعث Horizontal Overflow نشود.
-*/
+body.fa .about .about_img_box .about_img::after {
+    z-index: 0 !important;
+    pointer-events: none;
+}
+
+body.fa .about .about_img_box .about_img > * {
+    position: relative;
+    z-index: 1;
+}
 
 body.fa .experience_box {
     left: auto !important;
     right: 0 !important;
 }
-
-
-/* ============================================================
-   8. ABOUT BUTTONS
-   ============================================================ */
 
 body.fa .about_content_box .y-button {
     direction: rtl;
@@ -239,7 +297,7 @@ body.fa .mr-3 {
 
 
 /* ============================================================
-   9. SERVICES
+   8. SERVICES
    ============================================================ */
 
 body.fa .services {
@@ -269,7 +327,7 @@ body.fa .single-sevices .title {
 
 
 /* ============================================================
-   10. SKILLS / COUNTS
+   9. SKILLS / COUNTS
    ============================================================ */
 
 body.fa .counts {
@@ -283,7 +341,7 @@ body.fa .skill_box {
 
 
 /* ============================================================
-   11. SECTION TITLES
+   10. SECTION TITLES
    ============================================================ */
 
 body.fa .section-title {
@@ -303,7 +361,7 @@ body.fa .section-title p {
 
 
 /* ============================================================
-   12. PORTFOLIO
+   11. PORTFOLIO
    ============================================================ */
 
 body.fa .portfolio {
@@ -317,9 +375,6 @@ body.fa .portfolio .section-title {
 body.fa .portfolio > .container > h4 {
     text-align: center;
 }
-
-
-/* Project points */
 
 .project-points {
     margin-top: 12px;
@@ -341,11 +396,6 @@ body.fa .project-points {
     margin-bottom: 7px;
 }
 
-
-/* ============================================================
-   13. EXTRA PROJECT POINTS
-   ============================================================ */
-
 .extra-points-wrapper {
     max-height: 0;
     overflow: hidden;
@@ -355,11 +405,6 @@ body.fa .project-points {
 .extra-points-wrapper.open {
     max-height: 2500px;
 }
-
-
-/* ============================================================
-   14. SHOW MORE BUTTON
-   ============================================================ */
 
 .show-more-btn {
     background: transparent;
@@ -385,18 +430,13 @@ body.fa .show-more-btn {
     font-size: 14px !important;
 }
 
-
-/* ============================================================
-   15. PROJECT BUTTON
-   ============================================================ */
-
 body.fa .project-btn {
     direction: rtl;
 }
 
 
 /* ============================================================
-   16. PROJECT AREA
+   12. PROJECT AREA
    ============================================================ */
 
 body.fa .project-area {
@@ -409,21 +449,20 @@ body.fa .project-area .section-title {
 
 
 /* ============================================================
-   17. TESTIMONIALS
+   13. TESTIMONIALS
    ============================================================ */
 
 body.fa .testi-area {
     direction: rtl;
 }
 
-body.fa .client-info.d-flex {
-    flex-direction: row-reverse;
-    direction: rtl;
+.client-info.d-flex {
     gap: 15px;
 }
 
-.client-info.d-flex {
-    gap: 15px;
+body.fa .client-info.d-flex {
+    flex-direction: row-reverse;
+    direction: rtl;
 }
 
 body.fa .client-details {
@@ -434,16 +473,10 @@ body.fa .client-details p {
     text-align: right;
 }
 
-
-/* Client image */
-
 .client-img img.rounded-circle {
     border: 3px solid #eee;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
-
-
-/* Client comment */
 
 body.fa .client-comment {
     direction: rtl;
@@ -457,7 +490,7 @@ body.fa .client-comment p {
 
 
 /* ============================================================
-   18. CONTACT FORM
+   14. CONTACT FORM
    ============================================================ */
 
 body.fa .contact-area {
@@ -490,7 +523,7 @@ body.fa .contact-info {
 
 
 /* ============================================================
-   19. FOOTER
+   15. FOOTER
    ============================================================ */
 
 body.fa .footer {
@@ -508,22 +541,76 @@ body.fa .copyright_text {
     font-size: 14px !important;
 }
 
-
-/* ============================================================
-   20. FOOTER LOGO
-   ============================================================ */
-
 @media (min-width: 992px) {
-
     body.fa img[alt="Mahdi Yar Logo"] {
         transform: scale(1.35);
     }
-
 }
 
 
 /* ============================================================
-   21. MOBILE
+   16. SOUND TIP BANNER
+   ============================================================ */
+
+.sound-tip {
+    position: absolute;
+    bottom: 64px;
+    right: 12px;
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+
+    background: rgba(149, 3, 247, 0.92);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 10px;
+    white-space: nowrap;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.sound-tip.show {
+    opacity: 1;
+    visibility: visible;
+    animation: tipBounce 0.7s ease-in-out infinite alternate;
+}
+
+.sound-tip.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    animation: none;
+}
+
+.sound-tip i {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+@keyframes tipBounce {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-8px); }
+}
+
+body.fa .sound-tip {
+    font-family: Vazir, Tahoma, sans-serif;
+    font-size: 12.5px;
+    left: 12px;
+    right: auto;
+}
+
+
+/* ============================================================
+   17. MOBILE
    ============================================================ */
 
 @media (max-width: 991.98px) {
@@ -542,21 +629,24 @@ body.fa .copyright_text {
         margin-left: 0 !important;
     }
 
-    body.fa .lang-btn {
-        margin-right: 0;
+    .lang-toggle {
+        width: 100%;
+        height: 42px;
+        margin: 10px 0 4px !important;
+        border-radius: 12px;
+        font-size: 14px;
     }
-
 }
 
 
 /* ============================================================
-   22. SMALL MOBILE
+   18. SMALL MOBILE
    ============================================================ */
 
 @media (max-width: 575.98px) {
 
     body.fa h1 {
-        font-size: 2rem !important;
+        font-size: 6rem !important;
     }
 
     body.fa h2 {
@@ -580,183 +670,13 @@ body.fa .copyright_text {
         font-size: 14.5px !important;
     }
 
-}
-
-
-
-   /* Fix About image ::after overlap in Persian / RTL */
-body.fa .about .about_img_box .about_img {
-    position: relative;
-    z-index: 1;
-}
-
-body.fa .about .about_img_box .about_img::after {
-    z-index: 0 !important;
-    pointer-events: none;
-}
-
-body.fa .about .about_img_box .about_img > * {
-    position: relative;
-    z-index: 1;
-}
-
-body.fa .about .about_content_box {
-    position: relative;
-    z-index: 2;
-}
-
-/* Language toggle button */
-.lang-toggle {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-
-    min-width: 65px;
-    padding: 6px 12px;
-
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    border-radius: 8px;
-    background: transparent;
-
-    color: inherit;
-    font-family: inherit;
-    font-size: 14px;
-    line-height: 1.4;
-
-    cursor: pointer;
-    transition: background-color 0.2s ease,
-                border-color 0.2s ease,
-                transform 0.2s ease;
-}
-
-.lang-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.06);
-    border-color: rgba(0, 0, 0, 0.25);
-    transform: translateY(-1px);
-}
-
-.lang-toggle .lang-label {
-    font-weight: 600;
-}
-
-.lang-toggle .lang-flag {
-    font-size: 18px;
-    line-height: 1.2;
-}
-
-/* Keep the button aligned with navbar links */
-.navbar .lang-toggle {
-    vertical-align: middle;
-    margin: 0;
-}
-
-/* Persian mode */
-body.fa .lang-toggle {
-    font-family: Vazir, Tahoma, sans-serif;
-}
-
-.lang-toggle {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 68px;
-    height: 38px;
-    padding: 0;
-
-    border: none;
-    border-radius: 7px;
-
-    color: #fff;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 600;
-
-    cursor: pointer;
-    overflow: hidden;
-
-    background-size: cover;
-    background-position: center;
-}
-
-body.fa .lang-toggle {
-    background-image: url("../images/uk.png");
-}
-
-body:not(.fa) .lang-toggle {
-    background-image: url("../images/iran.png");
-}
-
-/* لایه‌ی تیره فقط روی پرچم */
-.lang-toggle::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.39);
-    z-index: 1;
-}
-
-.lang-toggle .lang-label {
-    position: relative;
-    z-index: 2;
-
-    padding: 0;
-    background: transparent;
-
-    color: #fff;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-}
-
-/* =========================
-   Header alignment
-   ========================= */
-
-/* همه آیتم‌های هدر در یک خط و از نظر عمودی وسط */
-.navbar {
-    align-items: center !important;
-}
-
-.navbar-nav {
-    align-items: center !important;
-}
-
-/* دکمه تغییر زبان هم دقیقاً وسط خط قرار بگیرد */
-.navbar .lang-toggle {
-    display: inline-flex !important;
-    vertical-align: middle !important;
-    align-items: center !important;
-    justify-content: center !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    transform: none;
-}
-
-/* فاصله مناسب دکمه زبان با بقیه آیتم‌ها */
-.navbar .lang-toggle {
-    margin-left: 8px !important;
-    margin-right: 8px !important;
-}
-
-/* =========================
-   Center header content
-   ========================= */
-
-@media (min-width: 992px) {
-    .navbar .container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .navbar .navbar-nav {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
+    .sound-tip {
+        font-size: 11px;
+        padding: 7px 10px;
+        bottom: 58px;
     }
 }
+
 /* ============================================================
    END
    ============================================================ */
-

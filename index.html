@@ -283,11 +283,18 @@
                                     <i class="fa fa-play"></i>
                                 </button>
 
-                                <!-- دکمه صدا پایین راست -->
+                                <!-- بنر راهنمای صدا -->
+                                <div class="sound-tip" id="soundTip">
+                                    <span data-en="Tap to unmute" data-fa="با این دکمه صدا را باز کنید">Tap to unmute</span>
+                                    <i class="fa fa-arrow-down"></i>
+                                </div>
+
+                                <!-- دکمه صدا -->
                                 <div class="video-controls">
                                     <button type="button" class="video-btn" id="muteBtn" title="Mute / Unmute">
                                         <i class="fa fa-volume-off"></i>
                                     </button>
+                        
                                 </div>
                             </div>
                         </div>
@@ -625,227 +632,247 @@
     <script src="js/lightbox.js"></script>
 
     <!-- Language Switch + Contact Form + Dynamic Island -->
-    <script>
-        // =========================
-        // Dynamic Island Entrance (دایره → باز شدن با برق)
-        // =========================
-        const navbar = document.querySelector('.navbar');
+<script>
+    // =========================
+    // Dynamic Island Entrance
+    // =========================
+    const navbar = document.querySelector('.navbar');
 
-        window.addEventListener('load', function () {
-            // بعد از ۳ ثانیه اول به صورت دایره ظاهر می‌شه
+    window.addEventListener('load', function () {
+        setTimeout(function () {
+            navbar.classList.add('island-visible');
+
             setTimeout(function () {
-                navbar.classList.add('island-visible');
+                navbar.classList.add('island-expanded');
+                navbar.classList.add('island-flash');
 
-                // بعد از نیم‌ثانیه باز می‌شه + برق می‌زنه
                 setTimeout(function () {
-                    navbar.classList.add('island-expanded');
-                    navbar.classList.add('island-flash');
+                    navbar.classList.remove('island-flash');
+                }, 550);
+            }, 650);
+        }, 3000);
+    });
 
-                    // برق بعد از ۰.۶ ثانیه خاموش می‌شه
-                    setTimeout(function () {
-                        navbar.classList.remove('island-flash');
-                    }, 600);
-                }, 500);
-            }, 3000);
-        });
-
-        // حالت اسکرول
-        window.addEventListener('scroll', function () {
-            if (window.scrollY > 40) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-        // Language Toggle
-        let currentLang = 'en';
-        const langToggle = document.getElementById('langToggle');
-
-        function applyLanguage(lang) {
-            currentLang = lang;
-            document.documentElement.lang = currentLang;
-            document.documentElement.dir = currentLang === 'fa' ? 'rtl' : 'ltr';
-            document.body.classList.toggle('fa', currentLang === 'fa');
-
-            const label = langToggle.querySelector('.lang-label');
-            if (label) {
-                label.textContent = currentLang === 'fa' ? 'English' : 'فارسی';
-            }
-
-            document.querySelectorAll('[data-en]').forEach(el => {
-                if (el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA') {
-                    const text = el.getAttribute('data-' + currentLang);
-                    if (text !== null) {
-                        el.innerHTML = text;
-                    }
-                }
-            });
-
-            document.querySelectorAll('[data-en-placeholder]').forEach(el => {
-                const placeholder = el.getAttribute('data-' + currentLang + '-placeholder');
-                if (placeholder !== null) {
-                    el.placeholder = placeholder;
-                }
-            });
-        }
-
-        const params = new URLSearchParams(window.location.search);
-        const urlLang = params.get('lang');
-        if (urlLang === 'fa') {
-            currentLang = 'fa';
+    // حالت اسکرول هدر
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 40) {
+            navbar.classList.add('scrolled');
         } else {
-            currentLang = 'en';
+            navbar.classList.remove('scrolled');
         }
 
-        applyLanguage(currentLang);
+        // بستن منوی موبایل هنگام اسکرول
+        const navbarCollapse = document.getElementById('navbarText');
+        if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+            $('.navbar-collapse').collapse('hide');
+        }
+    });
 
-        langToggle.addEventListener('click', function () {
-            const newLang = currentLang === 'en' ? 'fa' : 'en';
-            const url = new URL(window.location.href);
-            url.searchParams.set('lang', newLang);
-            window.history.pushState({}, '', url);
-            applyLanguage(newLang);
-        });
+    // =========================
+    // Language Toggle
+    // =========================
+    let currentLang = 'en';
+    const langToggle = document.getElementById('langToggle');
 
-        // بستن منوی Navbar هنگام اسکرول
-        window.addEventListener('scroll', function () {
-            const navbarCollapse = document.getElementById('navbarText');
-            if (navbarCollapse.classList.contains('show')) {
-                $('.navbar-collapse').collapse('hide');
+    function applyLanguage(lang) {
+        currentLang = lang;
+        document.documentElement.lang = currentLang;
+        document.documentElement.dir = currentLang === 'fa' ? 'rtl' : 'ltr';
+        document.body.classList.toggle('fa', currentLang === 'fa');
+
+        const label = langToggle.querySelector('.lang-label');
+        if (label) {
+            label.textContent = currentLang === 'fa' ? 'English' : 'فارسی';
+        }
+
+        document.querySelectorAll('[data-en]').forEach(function (el) {
+            if (el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA') {
+                const text = el.getAttribute('data-' + currentLang);
+                if (text !== null) {
+                    el.innerHTML = text;
+                }
             }
         });
-        // =========================
-        // Project Video - Muted Autoplay + Center Play/Pause
-        // =========================
-        (function () {
-            const media = document.getElementById('kingfoodMedia');
-            const video = document.getElementById('kingfoodVideo');
-            const playPauseBtn = document.getElementById('playPauseBtn');
-            const muteBtn = document.getElementById('muteBtn');
 
-            if (!media || !video) return;
+        document.querySelectorAll('[data-en-placeholder]').forEach(function (el) {
+            const placeholder = el.getAttribute('data-' + currentLang + '-placeholder');
+            if (placeholder !== null) {
+                el.placeholder = placeholder;
+            }
+        });
+    }
 
-            let hasStarted = false;
-            let isMuted = true; // اول بدون صدا
+    // زبان از URL
+    const params = new URLSearchParams(window.location.search);
+    const urlLang = params.get('lang');
+    currentLang = (urlLang === 'fa') ? 'fa' : 'en';
+    applyLanguage(currentLang);
+
+    langToggle.addEventListener('click', function () {
+        const newLang = currentLang === 'en' ? 'fa' : 'en';
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', newLang);
+        window.history.pushState({}, '', url);
+        applyLanguage(newLang);
+    });
+
+    // =========================
+    // Project Video
+    // =========================
+    (function () {
+        const media = document.getElementById('kingfoodMedia');
+        const video = document.getElementById('kingfoodVideo');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const soundTip = document.getElementById('soundTip');
+
+        if (!media || !video) return;
+
+        let hasStarted = false;
+        let isMuted = true;
+
+        video.muted = true;
+
+        function updatePlayIcon() {
+            const icon = playPauseBtn.querySelector('i');
+            if (video.paused) {
+                icon.className = 'fa fa-play';
+                media.classList.add('paused');
+            } else {
+                icon.className = 'fa fa-pause';
+                media.classList.remove('paused');
+            }
+        }
+
+        function updateMuteIcon() {
+            const icon = muteBtn.querySelector('i');
+            icon.className = isMuted ? 'fa fa-volume-off' : 'fa fa-volume-up';
+        }
+
+        function showSoundTip() {
+            if (!soundTip) return;
+
+            soundTip.classList.remove('fade-out');
+            soundTip.classList.add('show');
+
+            setTimeout(function () {
+                soundTip.classList.add('fade-out');
+                soundTip.classList.remove('show');
+            }, 4000);
+        }
+
+        function startVideo() {
+            if (hasStarted) return;
+            hasStarted = true;
 
             video.muted = true;
+            isMuted = true;
+            updateMuteIcon();
 
-            function updatePlayIcon() {
-                const icon = playPauseBtn.querySelector('i');
-                if (video.paused) {
-                    icon.className = 'fa fa-play';
-                    media.classList.add('paused');
-                } else {
-                    icon.className = 'fa fa-pause';
-                    media.classList.remove('paused');
-                }
-            }
-
-            function updateMuteIcon() {
-                const icon = muteBtn.querySelector('i');
-                if (isMuted) {
-                    icon.className = 'fa fa-volume-off';
-                } else {
-                    icon.className = 'fa fa-volume-up';
-                }
-            }
-
-            function startVideo() {
-                if (hasStarted) return;
-                hasStarted = true;
-
-                video.muted = true;
-                isMuted = true;
-                updateMuteIcon();
-
-                video.play().then(function () {
-                    media.classList.add('playing');
-                    updatePlayIcon();
-                }).catch(function () {
-                    // اگر مرورگر اجازه نداد
-                    updatePlayIcon();
-                });
-            }
-
-            // وقتی کاربر به بخش پروژه‌ها رسید → اتوپلی بی‌صدا
-            const observer = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting && !hasStarted) {
-                        startVideo();
-                    }
-                });
-            }, {
-                threshold: 0.3
-            });
-
-            observer.observe(media);
-
-            // دکمه پلی / پاز وسط
-            playPauseBtn.addEventListener('click', function (e) {
-                e.stopPropagation();
-                if (video.paused) {
-                    video.play();
-                    media.classList.add('playing');
-                } else {
-                    video.pause();
-                }
+            video.play().then(function () {
+                media.classList.add('playing');
+                updatePlayIcon();
+                showSoundTip();
+            }).catch(function () {
                 updatePlayIcon();
             });
-
-            // کلیک روی خود ویدیو هم پلی/پاز کنه
-            video.addEventListener('click', function () {
-                if (video.paused) {
-                    video.play();
-                    media.classList.add('playing');
-                } else {
-                    video.pause();
-                }
-                updatePlayIcon();
-            });
-
-            // دکمه صدا
-            muteBtn.addEventListener('click', function (e) {
-                e.stopPropagation();
-                isMuted = !isMuted;
-                video.muted = isMuted;
-                updateMuteIcon();
-            });
-
-            // وقتی ویدیو pause یا play شد آیکون رو آپدیت کن
-            video.addEventListener('play', updatePlayIcon);
-            video.addEventListener('pause', updatePlayIcon);
-        })();
-        function togglePoints(btn) {
-            const wrapper = btn.previousElementSibling;
-            const isOpen = wrapper.classList.contains('open');
-            const isPersian = document.body.classList.contains('fa');
-            if (isOpen) {
-                wrapper.classList.remove('open');
-                btn.textContent = isPersian ? 'نمایش ویژگی‌های بیشتر' : 'Show more features';
-            } else {
-                wrapper.classList.add('open');
-                btn.textContent = isPersian ? 'نمایش کمتر' : 'Show less';
-            }
         }
 
-        // Contact Form → mailto
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name    = document.getElementById('form_name').value.trim();
-            const email   = document.getElementById('form_email').value.trim();
-            const number  = document.getElementById('form_number').value.trim();
-            const subject = document.getElementById('form_subject').value.trim() || 'Contact from Website';
-            const message = document.getElementById('form_message').value.trim();
-            if (!name || !email || !message) {
-                alert(currentLang === 'fa' ? 'لطفاً فیلدهای ضروری را پر کنید.' : 'Please fill in the required fields.');
-                return;
+        // اتوپلی وقتی به بخش پروژه رسیدی
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting && !hasStarted) {
+                    startVideo();
+                }
+            });
+        }, { threshold: 0.3 });
+
+        observer.observe(media);
+
+        // دکمه پلی / پاز وسط
+        playPauseBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (video.paused) {
+                video.play();
+                media.classList.add('playing');
+            } else {
+                video.pause();
             }
-            let body = `Name: ${name}\nEmail: ${email}\n`;
-            if (number) body += `Phone: ${number}\n`;
-            body += `\nMessage:\n${message}`;
-            const mailtoLink = `mailto:programing.mahdi@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            window.location.href = mailtoLink;
+            updatePlayIcon();
         });
-    </script>
+
+        // کلیک روی خود ویدیو
+        video.addEventListener('click', function () {
+            if (video.paused) {
+                video.play();
+                media.classList.add('playing');
+            } else {
+                video.pause();
+            }
+            updatePlayIcon();
+        });
+
+        // دکمه صدا
+        muteBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            isMuted = !isMuted;
+            video.muted = isMuted;
+            updateMuteIcon();
+
+            if (!isMuted && soundTip) {
+                soundTip.classList.add('fade-out');
+                soundTip.classList.remove('show');
+            }
+        });
+
+        video.addEventListener('play', updatePlayIcon);
+        video.addEventListener('pause', updatePlayIcon);
+    })();
+
+    // =========================
+    // Show more / less features
+    // =========================
+    function togglePoints(btn) {
+        const wrapper = btn.previousElementSibling;
+        const isOpen = wrapper.classList.contains('open');
+        const isPersian = document.body.classList.contains('fa');
+
+        if (isOpen) {
+            wrapper.classList.remove('open');
+            btn.textContent = isPersian ? 'نمایش ویژگی‌های بیشتر' : 'Show more features';
+        } else {
+            wrapper.classList.add('open');
+            btn.textContent = isPersian ? 'نمایش کمتر' : 'Show less';
+        }
+    }
+
+    // =========================
+    // Contact Form → mailto
+    // =========================
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const name    = document.getElementById('form_name').value.trim();
+        const email   = document.getElementById('form_email').value.trim();
+        const number  = document.getElementById('form_number').value.trim();
+        const subject = document.getElementById('form_subject').value.trim() || 'Contact from Website';
+        const message = document.getElementById('form_message').value.trim();
+
+        if (!name || !email || !message) {
+            alert(currentLang === 'fa' ? 'لطفاً فیلدهای ضروری را پر کنید.' : 'Please fill in the required fields.');
+            return;
+        }
+
+        let body = 'Name: ' + name + '\nEmail: ' + email + '\n';
+        if (number) body += 'Phone: ' + number + '\n';
+        body += '\nMessage:\n' + message;
+
+        const mailtoLink = 'mailto:programing.mahdi@gmail.com?subject=' +
+            encodeURIComponent(subject) +
+            '&body=' + encodeURIComponent(body);
+
+        window.location.href = mailtoLink;
+    });
+</script>
 </body>
 </html>
